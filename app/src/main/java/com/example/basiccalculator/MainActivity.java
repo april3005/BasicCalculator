@@ -3,6 +3,7 @@ package com.example.basiccalculator;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -41,6 +42,30 @@ public class MainActivity extends AppCompatActivity {
         equals = findViewById(R.id.btn_equals);
         clear = findViewById(R.id.btn_clear);
         dot = findViewById(R.id.btn_dot);
+
+        if (savedInstanceState != null){
+            firstOperand = savedInstanceState.getDouble("first");
+            secondOperand = savedInstanceState.getDouble("second");
+            result = savedInstanceState.getDouble("result");
+            rawOperand = savedInstanceState.getString("rawOperand");
+            operation = savedInstanceState.getString("operation");
+
+            String toShow = " " + firstOperand + " " + operation + " " + secondOperand + "=" + result;
+
+            resultTV.setText(toShow);
+        }
+    }
+
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putDouble("first", firstOperand);
+        outState.putDouble("second", secondOperand);
+        outState.putDouble("result", result);
+        outState.putString("rawOperand", "");
+        outState.putString("operation", operation);
     }
 
     public void onNumberClick(View v){
